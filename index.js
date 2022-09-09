@@ -91,20 +91,15 @@ function Person() {
   };
 }
 
-function MakeAccount(init, initPassword) {
-  var password = initPassword;
+function MakeAccount(init) {
   return {
     balance: init,
     withdrow: function (p, amount) {
-      if (password === p) {
-        if (amount <= this.balance) {
-          this.balance = this.balance - amount;
-          return "successfull and your new balance is " + this.balance;
-        } else {
-          return "you don't have that money you are poor :)";
-        }
+      if (amount <= this.balance) {
+        this.balance = this.balance - amount;
+        return "successfull and your new balance is " + this.balance;
       } else {
-        return "wrong password";
+        return "you don't have that money you are poor :)";
       }
     },
     depose: function (amount) {
@@ -115,4 +110,68 @@ function MakeAccount(init, initPassword) {
       return "you balence is " + this.balance;
     },
   };
+}
+////////////////////////////////////////
+function MakeAccount(init) {
+  this.balance = init;
+  this.withdrow = function (p, amount) {
+    if (amount <= this.balance) {
+      this.balance = this.balance - amount;
+      return "successfull and your new balance is " + this.balance;
+    } else {
+      return "you don't have that money you are poor :)";
+    }
+  };
+  this.depose = function (amount) {
+    this.balance = this.balance + amount;
+    return "your new balance is " + this.balance;
+  };
+  this.checkbalance = function () {
+    return "you balence is " + this.balance;
+  };
+}
+
+/////////////////////////////////////////////
+
+function MakeAccount(init) {
+  this.balance = init;
+}
+
+MakeAccount.prototype.withdrow = function (amount) {
+  if (amount <= this.balance) {
+    this.balance = this.balance - amount;
+    return "successfull and your new balance is " + this.balance;
+  } else {
+    return "you don't have that money you are poor :)";
+  }
+};
+MakeAccount.prototype.depose = function (amount) {
+  this.balance = this.balance + amount;
+  return "your new balance is " + this.balance;
+};
+MakeAccount.prototype.checkbalance = function () {
+  return "you balence is " + this.balance;
+};
+
+////////////////////////////////////////////
+
+class MakeAccount {
+  constructor(init) {
+    this.balance = init;
+  }
+  withdrow(amount) {
+    if (amount <= this.balance) {
+      this.balance = this.balance - amount;
+      return "successfull and your new balance is " + this.balance;
+    } else {
+      return "you don't have that money you are poor :)";
+    }
+  }
+  depose(amount) {
+    this.balance = this.balance + amount;
+    return "your new balance is " + this.balance;
+  }
+  checkbalance() {
+    return "you balence is " + this.balance;
+  }
 }
